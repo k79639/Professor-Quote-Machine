@@ -1,6 +1,6 @@
 # 🧠 Professor Quote Machine
 
-A chaotic, brutally honest, and darkly humorous quote generator featuring real professor lines that make you question your life choices. Built for the CodeCircuit Hackathon by Outlier AI.
+A chaotic, brutally honest, and darkly humorous quote generator featuring professor lines that make you question your life choices. Built for the CodeCircuit Hackathon.
 
 > _"WiFi is a big swimming pool and there are still people peeing in it."_  
 > — probably your CS professor
