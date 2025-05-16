@@ -41,5 +41,5 @@ This project is intended purely for entertainment and educational purposes.
 The quotes included are exaggerated, humorous, or satirical in nature and are not meant to target, offend, or represent any real individuals or institutions.
 Viewer discretion is advised.
 
-📸 Screenshot
+## 📸 Screenshot
 <img width="1470" alt="image" src="https://github.com/user-attachments/assets/62d1e90b-e845-4e40-b3d0-bf7e213cf296" />
