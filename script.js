@@ -20,3 +20,50 @@ const quotes = [
 ];
 
 const emojis = ["💀", "👨‍🏫", "😈", "👻", "🧛", "👽"];
+
+let currentQuoteIndex = -1;
+let previousQuoteIndex = -1;
+
+const quoteContainer = document.getElementById('quote-container');
+const quoteText = document.getElementById('quote-text');
+const newQuoteBtn = document.getElementById('new-quote-btn');
+
+function getRandomQuote() {
+    // Ensure we don't repeat the same quote twice in a row
+    do {
+        currentQuoteIndex = Math.floor(Math.random() * quotes.length);
+    } while (currentQuoteIndex === previousQuoteIndex && quotes.length > 1);
+    
+    previousQuoteIndex = currentQuoteIndex;
+    return quotes[currentQuoteIndex];
+}
+
+function getRandomEmoji() {
+    return emojis[Math.floor(Math.random() * emojis.length)];
+}
+
+function displayNewQuote() {
+    // First, fade out the current quote
+    quoteContainer.classList.remove('show');
+    quoteContainer.classList.add('hide');
+    
+    setTimeout(() => {
+        // Get new quote and update the display
+        const newQuote = getRandomQuote();
+        const randomEmoji = getRandomEmoji();
+        
+        quoteText.innerHTML = `"${newQuote}" <span class="text-gray-400">${randomEmoji}</span>`;
+        
+        // Then fade in the new quote
+        quoteContainer.classList.remove('hide');
+        quoteContainer.classList.add('show');
+    }, 300);
+}
+
+// Initialize with first quote
+window.addEventListener('load', () => {
+    setTimeout(() => {
+        displayNewQuote();
+        // createParticles();
+    }, 200);
+});
