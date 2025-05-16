@@ -35,7 +35,7 @@ cd Professor-Quote-Machine
 open index.html
 ```
 
-⚠️ Disclaimer
+## ⚠️ Disclaimer
 
 This project is intended purely for entertainment and educational purposes.
 The quotes included are exaggerated, humorous, or satirical in nature and are not meant to target, offend, or represent any real individuals or institutions.
