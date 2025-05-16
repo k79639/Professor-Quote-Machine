@@ -67,3 +67,18 @@ window.addEventListener('load', () => {
         // createParticles();
     }, 200);
 });
+
+// Button click handler
+newQuoteBtn.addEventListener('click', displayNewQuote);
+
+// Automatically focus button on page load
+window.onload = () => {
+    newQuoteBtn.focus(); 
+};
+
+// Keyboard accessibility
+newQuoteBtn.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter' || e.key === ' ') {
+        displayNewQuote();
+    }
+});
