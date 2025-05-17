@@ -12,9 +12,30 @@
     <script src="script.js" defer></script>
 </head>
 <body class="flex flex-col items-center justify-center min-h-screen p-4">
+    <!-- Disclaimer Modal -->
+    <div id="disclaimer-modal" class="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-50">
+        <div class="bg-gray-900 p-8 rounded-2xl max-w-2xl mx-4 border border-gray-800">
+            <h2 class="text-2xl font-bold text-white mb-4">⚠️ Disclaimer</h2>
+            <p class="text-gray-300 mb-6">
+                Welcome to the Professor Quote Machine! Before you proceed, please note:
+                <br><br>
+                • The quotes included are exaggerated, humorous, or satirical in nature
+                <br>
+                • They are not meant to target, offend, or represent any real individuals or institutions
+                <br>
+                • This is purely for entertainment purposes
+                <br><br>
+                By clicking "I Understand", you acknowledge that you understand and accept these terms.
+            </p>
+            <button id="accept-disclaimer" class="w-full bg-gradient-to-r from-purple-600 to-blue-500 hover:from-purple-700 hover:to-blue-600 text-white font-bold py-3 px-6 rounded-full transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-purple-400 focus:ring-opacity-50">
+                I Understand
+            </button>
+        </div>
+    </div>
+
     <div id="particles-js"></div>
 
-    <main class="w-full max-w-2xl mx-auto">
+    <main class="w-full max-w-2xl mx-auto hidden" id="main-content">
         <div class="bg-gray-900 bg-opacity-80 backdrop-blur-lg rounded-2xl p-8 shadow-2xl border border-gray-800">
             <h1 class="text-3xl font-bold text-center mb-6 text-white">Professor Quote Machine <span class="text-gray-400">🤓</span></h1>
             
@@ -30,7 +51,7 @@
         </div>
     </main>
 
-    <footer class="mt-8 text-gray-500 text-sm text-center">
+    <footer class="mt-8 text-gray-500 text-sm text-center hidden" id="footer">
         Built in a moment of academic despair 💀
     </footer>
 </body>

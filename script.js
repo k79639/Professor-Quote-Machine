@@ -1,7 +1,7 @@
 const quotes = [
     "Idk why we picked this textbook",
     "Go fuck off, you're nowhere near as significant as me",
-    "If there are any terrorists in this class, 151 Front Street W in Toronto is a great place to blow up",
+    "If there are any terrorists in this class, 151 Front Street W is a great place to blow up",
     "I wouldn't show you porn either",
     "Don't go around telling your parents you have a physical connection with your teacher",
     "Inspired me to kidnap somebody and write a demand letter",
@@ -23,19 +23,42 @@ const emojis = ["💀", "👨‍🏫", "😈", "👻", "🧛", "👽"];
 
 let currentQuoteIndex = -1;
 let previousQuoteIndex = -1;
+let usedQuotes = new Set(); // Track used quotes to ensure better distribution
 
 const quoteContainer = document.getElementById('quote-container');
 const quoteText = document.getElementById('quote-text');
 const newQuoteBtn = document.getElementById('new-quote-btn');
+const disclaimerModal = document.getElementById('disclaimer-modal');
+const mainContent = document.getElementById('main-content');
+const footer = document.getElementById('footer');
+const acceptDisclaimerBtn = document.getElementById('accept-disclaimer');
+
+// Handle disclaimer acceptance
+acceptDisclaimerBtn.addEventListener('click', () => {
+    disclaimerModal.style.display = 'none';
+    mainContent.classList.remove('hidden');
+    footer.classList.remove('hidden');
+    displayNewQuote();
+    createParticles();
+});
 
 function getRandomQuote() {
-    // Ensure we don't repeat the same quote twice in a row
-    do {
-        currentQuoteIndex = Math.floor(Math.random() * quotes.length);
-    } while (currentQuoteIndex === previousQuoteIndex && quotes.length > 1);
+    // If we've used all quotes, reset the used quotes set
+    if (usedQuotes.size === quotes.length) {
+        usedQuotes.clear();
+    }
     
-    previousQuoteIndex = currentQuoteIndex;
-    return quotes[currentQuoteIndex];
+    // Get available quotes (those not in usedQuotes)
+    const availableQuotes = quotes.filter((_, index) => !usedQuotes.has(index));
+    
+    // Select a random quote from available quotes
+    const randomIndex = Math.floor(Math.random() * availableQuotes.length);
+    const selectedQuoteIndex = quotes.indexOf(availableQuotes[randomIndex]);
+    
+    // Add the selected quote to used quotes
+    usedQuotes.add(selectedQuoteIndex);
+    
+    return quotes[selectedQuoteIndex];
 }
 
 function getRandomEmoji() {
@@ -70,11 +93,6 @@ window.addEventListener('load', () => {
 
 // Button click handler
 newQuoteBtn.addEventListener('click', displayNewQuote);
-
-// Automatically focus button on page load
-window.onload = () => {
-    newQuoteBtn.focus(); 
-};
 
 // Keyboard accessibility
 newQuoteBtn.addEventListener('keydown', (e) => {
@@ -128,3 +146,8 @@ function createParticles() {
     `;
     document.head.appendChild(style);
 }
+
+// Remove the window.onload event since we now handle initialization in the disclaimer acceptance
+window.onload = () => {
+    newQuoteBtn.focus();
+};
