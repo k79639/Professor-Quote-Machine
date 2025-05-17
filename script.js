@@ -136,7 +136,7 @@ async function generateQuoteImage() {
     // Add warning text with improved font
     ctx.font = '16px Inter, system-ui, -apple-system, sans-serif';
     ctx.fillStyle = 'rgba(255, 255, 255, 0.7)';
-    const warningText = '⚠️ This quote is satirical and not meant to represent any real individuals or institutions';
+    const warningText = '⚠️ These quotes are made up - Not real quotes from anyone';
     ctx.fillText(warningText, (canvas.width / scale) / 2, y + 60);
     
     // Add website URL with improved font
