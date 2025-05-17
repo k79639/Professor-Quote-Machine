@@ -65,22 +65,118 @@ function getRandomEmoji() {
     return emojis[Math.floor(Math.random() * emojis.length)];
 }
 
-function displayNewQuote() {
-    // First, fade out the current quote
-    quoteContainer.classList.remove('show');
-    quoteContainer.classList.add('hide');
+// Share functionality
+const shareBtn = document.getElementById('share-btn');
+let currentQuote = '';
+
+async function generateQuoteImage() {
+    // Create canvas with higher resolution
+    const scale = 2; // Scale factor for retina displays
+    const canvas = document.createElement('canvas');
+    const ctx = canvas.getContext('2d');
     
-    setTimeout(() => {
-        // Get new quote and update the display
-        const newQuote = getRandomQuote();
-        const randomEmoji = getRandomEmoji();
+    // Set canvas size with higher resolution
+    canvas.width = 800 * scale;
+    canvas.height = 400 * scale;
+    
+    // Scale context to match the higher resolution
+    ctx.scale(scale, scale);
+    
+    // Enable text antialiasing
+    ctx.imageSmoothingEnabled = true;
+    ctx.textRendering = 'geometricPrecision';
+    
+    // Background gradient
+    const gradient = ctx.createLinearGradient(0, 0, canvas.width / scale, canvas.height / scale);
+    gradient.addColorStop(0, '#1a1a2e');
+    gradient.addColorStop(1, '#16213e');
+    ctx.fillStyle = gradient;
+    ctx.fillRect(0, 0, canvas.width / scale, canvas.height / scale);
+    
+    // Add particles effect with improved rendering
+    for (let i = 0; i < 30; i++) {
+        const x = Math.random() * (canvas.width / scale);
+        const y = Math.random() * (canvas.height / scale);
+        const size = Math.random() * 2 + 1;
+        ctx.fillStyle = 'rgba(255, 255, 255, 0.2)';
+        ctx.beginPath();
+        ctx.arc(x, y, size, 0, Math.PI * 2);
+        ctx.fill();
+    }
+    
+    // Configure text with improved rendering
+    ctx.textAlign = 'center';
+    ctx.fillStyle = 'white';
+    
+    // Add title with improved font
+    ctx.font = 'bold 32px Inter, system-ui, -apple-system, sans-serif';
+    ctx.fillText('Professor Quote Machine', (canvas.width / scale) / 2, 60);
+    
+    // Add quote with improved font and line height
+    ctx.font = '24px Inter, system-ui, -apple-system, sans-serif';
+    const maxWidth = (canvas.width / scale) - 100;
+    const words = currentQuote.split(' ');
+    let line = '';
+    let y = 150;
+    const lineHeight = 40;
+    
+    for (let word of words) {
+        const testLine = line + word + ' ';
+        const metrics = ctx.measureText(testLine);
+        if (metrics.width > maxWidth && line !== '') {
+            ctx.fillText(line, (canvas.width / scale) / 2, y);
+            line = word + ' ';
+            y += lineHeight;
+        } else {
+            line = testLine;
+        }
+    }
+    ctx.fillText(line, (canvas.width / scale) / 2, y);
+    
+    // Add warning text with improved font
+    ctx.font = '16px Inter, system-ui, -apple-system, sans-serif';
+    ctx.fillStyle = 'rgba(255, 255, 255, 0.7)';
+    const warningText = '⚠️ This quote is satirical and not meant to represent any real individuals or institutions';
+    ctx.fillText(warningText, (canvas.width / scale) / 2, y + 60);
+    
+    // Add website URL with improved font
+    ctx.font = '14px Inter, system-ui, -apple-system, sans-serif';
+    ctx.fillStyle = 'rgba(255, 255, 255, 0.5)';
+    ctx.fillText('professor-quote-machine.com', (canvas.width / scale) / 2, (canvas.height / scale) - 30);
+    
+    // Return high-quality PNG
+    return canvas.toDataURL('image/png', 1.0);
+}
+
+async function shareQuote() {
+    try {
+        const imageData = await generateQuoteImage();
         
-        quoteText.innerHTML = `"${newQuote}" <span class="text-gray-400">${randomEmoji}</span>`;
+        // Convert base64 to blob
+        const response = await fetch(imageData);
+        const blob = await response.blob();
         
-        // Then fade in the new quote
-        quoteContainer.classList.remove('hide');
-        quoteContainer.classList.add('show');
-    }, 300);
+        // Create file from blob
+        const file = new File([blob], 'professor-quote.png', { type: 'image/png' });
+        
+        if (navigator.share) {
+            await navigator.share({
+                title: 'Professor Quote Machine',
+                text: 'Check out this professor quote!',
+                files: [file]
+            });
+        } else {
+            // Fallback: Download the image
+            const link = document.createElement('a');
+            link.href = imageData;
+            link.download = 'professor-quote.png';
+            link.click();
+        }
+    } catch (err) {
+        if (err.name !== 'AbortError') {
+            console.error('Error sharing:', err);
+        }
+    }
 }
 
 // Initialize with first quote
@@ -151,3 +247,32 @@ function createParticles() {
 window.onload = () => {
     newQuoteBtn.focus();
 };
+
+function displayNewQuote() {
+    // First, fade out the current quote
+    quoteContainer.classList.remove('show');
+    quoteContainer.classList.add('hide');
+    
+    setTimeout(() => {
+        // Get new quote and update the display
+        const newQuote = getRandomQuote();
+        currentQuote = newQuote; // Store current quote for sharing
+        const randomEmoji = getRandomEmoji();
+        
+        quoteText.innerHTML = `"${newQuote}" <span class="text-gray-400">${randomEmoji}</span>`;
+        
+        // Then fade in the new quote
+        quoteContainer.classList.remove('hide');
+        quoteContainer.classList.add('show');
+    }, 300);
+}
+
+// Add click handler for share button
+shareBtn.addEventListener('click', shareQuote);
+
+// Add keyboard accessibility for share button
+shareBtn.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter' || e.key === ' ') {
+        shareQuote();
+    }
+});
