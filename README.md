@@ -1,4 +1,4 @@
-# 🧠 Professor Quote Machine
+# Professor Quote Machine
 
 A chaotic, brutally honest, and darkly humorous quote generator featuring professor lines that make you question your life choices. Built for the CodeCircuit Hackathon.
 
@@ -7,17 +7,17 @@ A chaotic, brutally honest, and darkly humorous quote generator featuring profes
 
 ## 🔗 Live Demo
 
-👉 [Visit the App](https://k79639.github.io/Professor-Quote-Machine/)
+[Visit the App](https://k79639.github.io/Professor-Quote-Machine/)
 
-## 🎯 Features
+## Features
 
-- 🎲 Random quote generation with each click  
-- 💬 Outrageous professor quotes (caution: NSFW)  
-- 🎞️ Smooth fade-in animation on new quote  
-- 💻 Responsive and clean UI  
-- 😈 Vibes: Dark humor meets chaotic academia
+-  Random quote generation with each click  
+-  Outrageous professor quotes (caution: NSFW)  
+-  Smooth fade-in animation on new quote  
+-  Responsive and clean UI  
+-  Vibes: Dark humor meets chaotic academia
 
-## 🛠️ Built With
+##  Built With
 
 - HTML  
 - Tailwind CSS (via CDN)  
@@ -25,7 +25,7 @@ A chaotic, brutally honest, and darkly humorous quote generator featuring profes
 - JavaScript (Vanilla)  
 - Deployed on GitHub Pages
 
-## 🚀 Getting Started
+## Getting Started
 
 To run this project locally:
 
