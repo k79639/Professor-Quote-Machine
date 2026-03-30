@@ -17,7 +17,8 @@ const quotes = [
     "Why the hell do we use this useless piece of shit",
     "Anyone still listen to radio? ...You do! Ha! Loser.",
     "Okay, I'm officially fucking old now",
-    "I will politely ignore all the emails begging for more marks"
+    "I will politely ignore all the emails begging for more marks",
+    "Aside from learning that hackers are secret vampires"
 ];
 
 const emojis = ["💀", "👨‍🏫", "😈", "👻", "🧛", "👽"];
