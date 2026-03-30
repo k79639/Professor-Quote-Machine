@@ -35,6 +35,16 @@ cd Professor-Quote-Machine
 open index.html
 ```
 
+## Contribution
+
+Contributions are welcome.
+
+1. Fork the repository.
+2. Create a new branch: `git checkout -b feature/your-feature-name`
+3. Make your changes and commit: `git commit -m "Add your message"`
+4. Push your branch: `git push origin feature/your-feature-name`
+5. Open a pull request describing what you changed.
+
 ## ⚠️ Disclaimer
 
 This project is intended purely for entertainment and educational purposes.
